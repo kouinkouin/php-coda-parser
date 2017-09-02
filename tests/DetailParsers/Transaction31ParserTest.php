@@ -10,7 +10,7 @@ class Transaction31ParserTest extends \PHPUnit_Framework_TestCase
 
         $sample = "31000100010007500005482        004800001001BVBA.BAKKER PIET                                                                  1 0";
 
-        $this->assertEquals(TRUE, $parser->accept_string($sample));
+        $this->assertEquals(true, $parser->accept_string($sample));
 
         $result = $parser->parse($sample);
 
@@ -21,7 +21,10 @@ class Transaction31ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($result->message);
         $this->assertTrue($result->has_structured_message);
         $this->assertEquals("001", $result->structured_message_type);
-        $this->assertEquals("BVBA.BAKKER PIET                                                      ", $result->structured_message_full);
+        $this->assertEquals(
+            "BVBA.BAKKER PIET                                                      ",
+            $result->structured_message_full
+        );
         $this->assertEmpty($result->structured_message);
     }
 }

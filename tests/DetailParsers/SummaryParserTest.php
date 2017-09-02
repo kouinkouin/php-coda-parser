@@ -10,11 +10,11 @@ class SummaryParserTest extends \PHPUnit_Framework_TestCase
 
         $sample = "9               000015000000016837520000000003967220                                                                           1";
 
-        $this->assertEquals(TRUE, $parser->accept_string($sample));
+        $this->assertEquals(true, $parser->accept_string($sample));
 
         $result = $parser->parse($sample);
 
-		$this->assertEquals(16837.520, $result->debet_amount);
-		$this->assertEquals(3967.220, $result->credit_amount);
+        $this->assertEquals(16837.520, $result->debet_amount);
+        $this->assertEquals(3967.220, $result->credit_amount);
     }
 }

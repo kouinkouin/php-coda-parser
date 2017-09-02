@@ -10,7 +10,7 @@ class Transaction32ParserTest extends \PHPUnit_Framework_TestCase
 
         $sample = "3200010001MAIN STREET 928                    5480 SOME CITY                                                                  0 0";
 
-        $this->assertEquals(TRUE, $parser->accept_string($sample));
+        $this->assertEquals(true, $parser->accept_string($sample));
 
         $result = $parser->parse($sample);
 

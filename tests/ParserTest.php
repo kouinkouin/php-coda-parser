@@ -6,24 +6,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 {
     private function getSample1()
     {
-        $content = array(
-        "0000018011520105        0938409934CODELICIOUS               GEBABEBB   09029308273 00001          984309          834080       2",
-        "10155001548226815 EUR0BE                  0000000004004100241214CODELICIOUS               PROFESSIONAL ACCOUNT               255",
-        "21000100000001200002835        0000000001767820251214001120000112/4554/46812   813                                 25121421401 0",
-        "2200010000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
-        "2300010000BE54805480215856                  EURBVBA.BAKKER PIET                         MESSAGE                              0 1",
-        "31000100010007500005482        004800001001BVBA.BAKKER PIET                                                                  1 0",
-        "3200010001MAIN STREET 928                    5480 SOME CITY                                                                  0 0",
-        "3300010001SOME INFORMATION ABOUT THIS TRANSACTION                                                                            0 0",
-        "21000200000001200002835        0000000002767820251214001120001101112455446812  813                                 25121421401 0",
-        "2200020000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
-        "2300020000BE54805480215856                  EURBVBA.BAKKER PIET                         MESSAGE                              0 1",
-        "31000200010007500005482        004800001001BVBA.BAKKER PIET                                                                  1 0",
-        "21000900000001200002835        0000000001767820251214001120000112/4554/46812   813                                 25121421401 0",
-        "2200090000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
-        "8225001548226815 EUR0BE                  1000000500012100120515                                                                0",
-        "9               000015000000016837520000000003967220                                                                           1",
-        );
+        $content = [
+            "0000018011520105        0938409934CODELICIOUS               GEBABEBB   09029308273 00001          984309          834080       2",
+            "10155001548226815 EUR0BE                  0000000004004100241214CODELICIOUS               PROFESSIONAL ACCOUNT               255",
+            "21000100000001200002835        0000000001767820251214001120000112/4554/46812   813                                 25121421401 0",
+            "2200010000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
+            "2300010000BE54805480215856                  EURBVBA.BAKKER PIET                         MESSAGE                              0 1",
+            "31000100010007500005482        004800001001BVBA.BAKKER PIET                                                                  1 0",
+            "3200010001MAIN STREET 928                    5480 SOME CITY                                                                  0 0",
+            "3300010001SOME INFORMATION ABOUT THIS TRANSACTION                                                                            0 0",
+            "21000200000001200002835        0000000002767820251214001120001101112455446812  813                                 25121421401 0",
+            "2200020000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
+            "2300020000BE54805480215856                  EURBVBA.BAKKER PIET                         MESSAGE                              0 1",
+            "31000200010007500005482        004800001001BVBA.BAKKER PIET                                                                  1 0",
+            "21000900000001200002835        0000000001767820251214001120000112/4554/46812   813                                 25121421401 0",
+            "2200090000  ANOTHER MESSAGE                                           54875                       GEBCEEBB                   1 0",
+            "8225001548226815 EUR0BE                  1000000500012100120515                                                                0",
+            "9               000015000000016837520000000003967220                                                                           1",
+        ];
 
         return $content;
     }
@@ -31,7 +31,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testSample1()
     {
         $parser = new \Codelicious\Coda\Parser();
-        $parser->setDetailParser(array());
+        $parser->setDetailParser([]);
 
         $result = $parser->parse($this->getSample1());
 
@@ -70,7 +70,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($tr3->line33);
     }
 
-
     public function testSample1SimpleFormat()
     {
         $parser = new \Codelicious\Coda\Parser();
@@ -108,7 +107,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAndGetParserDetail()
     {
-        $parser = new \Codelicious\Coda\Parser();
+        $parser  = new \Codelicious\Coda\Parser();
         $parsers = $parser->getDetailParsers();
         array_pop($parsers);
 
