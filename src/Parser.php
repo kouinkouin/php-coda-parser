@@ -6,6 +6,7 @@ use Codelicious\Coda\Data\Raw;
 use Codelicious\Coda\DetailParsers;
 use Codelicious\Coda\Transformation\TransformationInterface;
 use Codelicious\Coda\Transformation\TransformToSimple;
+use Exception;
 
 /**
  * @package Codelicious\Coda
