@@ -129,8 +129,7 @@ class Parser
     {
         $statements_list = [];
 
-        $current_account_transaction         = null;
-        $current_transaction_sequence_number = null;
+        $current_account_transaction = null;
         foreach ($coda_lines as $coda_line) {
             switch ($coda_line->record_code) {
                 case 0:
@@ -138,7 +137,6 @@ class Parser
                         array_push($statements_list, $current_account_transaction);
                     }
                     $current_account_transaction                 = new Raw\Statement();
-                    $current_transaction_sequence_number         = null;
                     $current_account_transaction->identification = $coda_line;
                     break;
                 case 1:
@@ -155,14 +153,16 @@ class Parser
                     break;
                 case 2:
                 case 3:
+                    $transactionNumber = $coda_line->record_code . $coda_line->article_code;
+
                     $trans_idx = count($current_account_transaction->transactions) - 1;
-                    if ($trans_idx < 0 || $current_transaction_sequence_number != $coda_line->sequence_number) {
+                    if ($transactionNumber == '21') {
                         $trans_idx += 1;
 
-                        $current_transaction_sequence_number = $coda_line->sequence_number;
                         array_push($current_account_transaction->transactions, new Raw\Transaction());
                     }
-                    $current_account_transaction->transactions[$trans_idx]->{'line' . $coda_line->record_code . $coda_line->article_code} = $coda_line;
+
+                    $current_account_transaction->transactions[$trans_idx]->{'line' . $transactionNumber} = $coda_line;
                     break;
             }
         }
