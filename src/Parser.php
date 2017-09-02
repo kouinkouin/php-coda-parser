@@ -132,29 +132,38 @@ class Parser
         $current_account_transaction         = null;
         $current_transaction_sequence_number = null;
         foreach ($coda_lines as $coda_line) {
-            if ($coda_line->record_code == "0") {
-                if ($current_account_transaction) {
-                    array_push($statements_list, $current_account_transaction);
-                }
-                $current_account_transaction                 = new Raw\Statement();
-                $current_transaction_sequence_number         = null;
-                $current_account_transaction->identification = $coda_line;
-            } elseif ($coda_line->record_code == "1") {
-                $current_account_transaction->original_situation = $coda_line;
-            } elseif ($coda_line->record_code == "4") {
-                array_push($current_account_transaction->messages, $coda_line);
-            } elseif ($coda_line->record_code == "8") {
-                $current_account_transaction->new_situation = $coda_line;
-            } elseif ($coda_line->record_code == "9") {
-                $current_account_transaction->summary = $coda_line;
-            } elseif ($coda_line->record_code == "2" || $coda_line->record_code == "3") {
-                $trans_idx = count($current_account_transaction->transactions) - 1;
-                if ($trans_idx < 0 || $current_transaction_sequence_number != $coda_line->sequence_number) {
-                    $trans_idx                           += 1;
-                    $current_transaction_sequence_number = $coda_line->sequence_number;
-                    array_push($current_account_transaction->transactions, new Raw\Transaction());
-                }
-                $current_account_transaction->transactions[$trans_idx]->{'line' . $coda_line->record_code . $coda_line->article_code} = $coda_line;
+            switch ($coda_line->record_code) {
+                case 0:
+                    if ($current_account_transaction) {
+                        array_push($statements_list, $current_account_transaction);
+                    }
+                    $current_account_transaction                 = new Raw\Statement();
+                    $current_transaction_sequence_number         = null;
+                    $current_account_transaction->identification = $coda_line;
+                    break;
+                case 1:
+                    $current_account_transaction->original_situation = $coda_line;
+                    break;
+                case 4:
+                    array_push($current_account_transaction->messages, $coda_line);
+                    break;
+                case 8:
+                    $current_account_transaction->new_situation = $coda_line;
+                    break;
+                case 9:
+                    $current_account_transaction->summary = $coda_line;
+                    break;
+                case 2:
+                case 3:
+                    $trans_idx = count($current_account_transaction->transactions) - 1;
+                    if ($trans_idx < 0 || $current_transaction_sequence_number != $coda_line->sequence_number) {
+                        $trans_idx += 1;
+
+                        $current_transaction_sequence_number = $coda_line->sequence_number;
+                        array_push($current_account_transaction->transactions, new Raw\Transaction());
+                    }
+                    $current_account_transaction->transactions[$trans_idx]->{'line' . $coda_line->record_code . $coda_line->article_code} = $coda_line;
+                    break;
             }
         }
 
