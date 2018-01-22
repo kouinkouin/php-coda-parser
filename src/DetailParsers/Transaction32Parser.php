@@ -22,7 +22,14 @@ class Transaction32Parser implements ParserInterface
 
         $coda32->sequence_number        = trim(substr($coda32_line, 2, 4));
         $coda32->sequence_number_detail = trim(substr($coda32_line, 6, 4));
-        $coda32->message                = trim_space(substr($coda32_line, 10, 105));
+        $coda32->message                = substr($coda32_line, 10, 105);
+
+        $coda32->address = str_split($coda32->message, 35);
+        foreach (array_keys($coda32->address) as $i) {
+            $coda32->address[$i] = trim($coda32->address[$i]);
+        }
+
+        $coda32->message = trim_space($coda32->message);
 
         return $coda32;
     }

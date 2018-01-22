@@ -15,4 +15,6 @@ class Transaction32
     public $sequence_number;
     public $sequence_number_detail;
     public $message;
+
+    public $address = [];
 }
