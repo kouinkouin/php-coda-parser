@@ -181,6 +181,7 @@ class Parser
 
         $object_list = [];
         foreach ($coda_lines as $line) {
+            $line = utf8_decode($line);
             $object = null;
 
             foreach ($parsers as $parser) {
