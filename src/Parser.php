@@ -4,6 +4,7 @@ namespace Codelicious\Coda;
 
 use Codelicious\Coda\Data\Raw;
 use Codelicious\Coda\DetailParsers;
+use Codelicious\Coda\DetailParsers\ParserInterface;
 use Codelicious\Coda\Transformation\TransformationInterface;
 use Codelicious\Coda\Transformation\TransformToSimple;
 use Exception;
@@ -102,7 +103,7 @@ class Parser
 
     /**
      * Return the current detail parser setted or initialized a valid set
-     * @return array
+     * @return ParserInterface[]
      */
     public function getDetailParsers()
     {
